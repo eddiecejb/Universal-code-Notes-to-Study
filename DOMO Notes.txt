@@ -1,0 +1,169 @@
+QoQ Retained This Qtr  OLD
+
+ROUND((SUM(Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(CURDATE()) 
+then `Retained` end))
+/
+(SUM(Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(CURDATE()) 
+then `Start` end))*100 ,2)
+
+QoQ Retained This Qtr  NEW
+
+ROUND((SUM(Case when Quarter(curdate()) = 1 
+then Case when Year(`EffectiveDate`) = Year(curdate()) - 1 and Quarter(`EffectiveDate`) = 4 
+then `Retained` end     Else Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(curdate()) then `Retained` end end))
+/
+(SUM(Case when Quarter(curdate()) = 1 
+then Case when Year(`EffectiveDate`) = Year(curdate()) - 1 and Quarter(`EffectiveDate`) = 4 
+then `Start` end     Else Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(curdate()) -1 then `Start` end end))*100 ,2)
+
+
+QoQ Retained Last Qtr  OLD
+
+
+
+
+
+
+QoQ Retained Last Qtr  NEW
+
+
+
+
+CASE 
+
+
+    WHEN SUM(`Retained` / `Start`) / COUNT(`Start`) *100 > 90
+        THEN CONCAT('<div style="background-color:#bbe491; text-align: center; text-decoration:none; font-weight: bold; width: 100%; 
+	height:100%; margin:-20px; padding:20px;"><a href="#">', ROUND(SUM(`Retained` / `Start`) / COUNT(`Start`),4) *100,' %','</a></div>')
+        
+        WHEN SUM(`Retained` / `Start`) / COUNT(`Start`) *100 > 75
+        THEN CONCAT('<div style="background-color:#fccf84; text-align: center; text-decoration:none; font-weight: bold; width: 100%; 
+	height:100%; margin:-20px; padding:20px;"><a href="#">', ROUND(SUM(`Retained` / `Start`) / COUNT(`Start`),4) *100,' %', '</a></div>')
+
+ELSE CONCAT('<div style="background-color:#fcbcb7; text-align: center; font-weight: normal; width: 100%; height:100%; margin:-20px; 
+padding:20px"><a href="#">', ROUND(SUM(`Retained` / `Start`) / COUNT(`Start`),4) *100,' %', '</a></div>')
+
+END
+
+
+
+-- SUM(`Retained` / `Start`) / COUNT(`Start`) *100
+
+
+
+
+((SUM(Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(CURDATE()) 
+then `Retained` end))
+/
+(SUM(Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(CURDATE()) 
+then `Start` end)))
+-
+((SUM(Case when Quarter(curdate()) = 1 
+then Case when Year(`EffectiveDate`) = Year(curdate()) - 1 and Quarter(`EffectiveDate`) = 4 
+then `Retained` end     Else Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(curdate()) -1 then `Retained` end end)) 
+/
+(SUM(Case when Quarter(curdate()) = 1 
+then Case when Year(`EffectiveDate`) = Year(curdate()) - 1 and Quarter(`EffectiveDate`) = 4 
+then `Retained` end     Else Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(curdate()) -1 then `Start` end end)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Concat('Q',Quarter(`EffectiveDate`))
+
+Year(`EffectiveDate`)
+
+Case when Quarter(current_date()) = 1 then 
+Case when Year(`EffectiveDate`) = Year(current_date()) - 1 
+and Quarter(`EffectiveDate`) = 4 then `%Retained`   end   
+Else Case when Year(`EffectiveDate`) = Year(current_date()) and Quarter(`EffectiveDate`) = Quarter(current_date()) -1 
+then `%Retained` end 
+end
+
+
+
+SUM(isnull(CAST(ly.PolicyID as money) / ty.PolicyID, 0)) /  COUNT(ly.PolicyID)*100   as '%Retained'
+
+
+(`New Written Premium`-`Last Month Premium`)/`Last Month Premium`
+
+
+
+NEW
+
+(SUM(Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(CURDATE()) 
+then `%Retained` end) / SUM(Case when Quarter(curdate()) = 1 
+then Case when Year(`EffectiveDate`) = Year(curdate()) - 1 and Quarter(`EffectiveDate`) = 4 
+then `%Retained` end     Else Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(curdate()) -1 then `%Retained` end end)) -1 
+
+((SUM(Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(CURDATE()) 
+then `Retained` end)) -
+(SUM(Case when Quarter(curdate()) = 1 
+then Case when Year(`EffectiveDate`) = Year(curdate()) - 1 and Quarter(`EffectiveDate`) = 4 
+then `Retained` end     Else Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(curdate()) -1 then `Retained` end end)) )
+/
+(SUM(Case when Quarter(curdate()) = 1 
+then Case when Year(`EffectiveDate`) = Year(curdate()) - 1 and Quarter(`EffectiveDate`) = 4 
+then `Retained` end     Else Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(curdate()) -1 then `Retained` end end)) 
+-- % CHANGE
+
+(SUM(Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(CURDATE()) 
+then `%Retained` end) / SUM(Case when Quarter(curdate()) = 1 
+then Case when Year(`EffectiveDate`) = Year(curdate()) - 1 and Quarter(`EffectiveDate`) = 4 
+then `%Retained` end     Else Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(curdate()) -1 then `%Retained` end end)) -1 
+
+
+-- QoQ Retained This Qtr
+
+(SUM(Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(CURDATE()) 
+then `Retained` end))
+
+-- QoQ Retained Last Qtr
+
+(SUM(Case when Quarter(curdate()) = 1 
+then Case when Year(`EffectiveDate`) = Year(curdate()) - 1 and Quarter(`EffectiveDate`) = 4 
+then `Retained` end     Else Case when Year(`EffectiveDate`) = Year(curdate()) 
+and Quarter(`EffectiveDate`) = Quarter(curdate()) -1 then `Retained` end end)) 
+
+
+
